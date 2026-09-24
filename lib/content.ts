@@ -1,6 +1,6 @@
 import { prisma } from "./db";
 
-export const fallbackSettings = { casinoName: "86 CASINO", title: "86 Casino | Accra's destination for gaming & entertainment", description: "Luxury gaming, exceptional hospitality and unforgettable nights in Accra.", phone: "+233 30 000 0086", email: "hello@86casino.com", address: "Accra, Ghana", directions: "https://maps.google.com/?q=Accra,Ghana", hours: "Open daily · 12:00 - late", instagram: null, facebook: null, twitter: null, youtube: null, copyright: "© 2026 86 CASINO. All rights reserved.", ageNotice: "18+ only. Please gamble responsibly." };
+export const fallbackSettings = { casinoName: "86 CASINO", title: "86 Casino | Accra's destination for gaming & entertainment", description: "Luxury gaming, exceptional hospitality and unforgettable nights in Accra.", phone: "+233 24 500 0005", email: "info@86-casino.com", address: "Accra, Ghana", directions: "https://maps.google.com/?q=Accra,Ghana", hours: "Open daily · 12:00 - late", instagram: null, facebook: null, twitter: null, youtube: null, copyright: "© 2026 86 CASINO. All rights reserved.", ageNotice: "18+ only. Please gamble responsibly." };
 const casinoAsset = (file: string) => `/assets/casino/${file}.webp`;
 export const fallbackImages = { hero: "/assets/casino/hero-optimized.webp", lounge: casinoAsset("006"), exterior: casinoAsset("010") };
 export const fallbackGames = [

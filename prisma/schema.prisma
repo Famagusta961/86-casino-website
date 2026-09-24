@@ -13,8 +13,8 @@ model SiteSetting {
   title       String   @default("86 Casino | Accra's destination for gaming & entertainment")
   description String  @default("Luxury gaming, exceptional hospitality and unforgettable nights in Accra.")
   logo        String?
-  phone       String   @default("+233 30 000 0086")
-  email       String   @default("hello@86casino.com")
+  phone       String   @default("+233 24 500 0005")
+  email       String   @default("info@86-casino.com")
   address     String   @default("Accra, Ghana")
   directions  String   @default("https://maps.google.com/?q=Accra,Ghana")
   hours       String   @default("Open daily · 12:00 - late")

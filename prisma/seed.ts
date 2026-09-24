@@ -7,7 +7,7 @@ const photos = {
 };
 
 async function main() {
-  await prisma.siteSetting.upsert({ where: { id: "site" }, update: {}, create: {} });
+  await prisma.siteSetting.upsert({ where: { id: "site" }, update: { phone: "+233 24 500 0005", email: "info@86-casino.com" }, create: { phone: "+233 24 500 0005", email: "info@86-casino.com" } });
   const games = [
     ["Roulette", "The timeless classic", "Feel the electricity at the wheel, with elegant tables and an attentive team.", photos.roulette],
     ["Blackjack", "The game of 21", "Bring your best hand to a table where every decision matters.", photos.cards],

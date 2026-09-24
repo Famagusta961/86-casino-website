@@ -1,0 +1,2 @@
+ALTER TABLE "SiteSetting" ALTER COLUMN "phone" SET DEFAULT '+233 24 500 0005';
+ALTER TABLE "SiteSetting" ALTER COLUMN "email" SET DEFAULT 'info@86-casino.com';
