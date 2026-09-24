@@ -12,7 +12,7 @@ export default async function Home() {
   const gallerySelection = galleryItems.slice(0, 6);
   return <main>
     <section className="hero hero-home">
-      <Image className="hero-image" src={fallbackImages.hero} alt="The 86 Casino gaming floor" fill priority sizes="100vw" />
+      <Image className="hero-image" src={fallbackImages.hero} alt="The 86 Casino gaming floor" fill priority quality={90} sizes="100vw" />
       <div className="hero-wash" />
       <div className="container hero-content">
         <div className="eyebrow light">86 Casino · Accra</div>
