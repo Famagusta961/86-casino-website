@@ -2,10 +2,28 @@ import { prisma } from "./db";
 
 export const fallbackSettings = { casinoName: "86 CASINO", title: "86 Casino | Accra's destination for gaming & entertainment", description: "Luxury gaming, exceptional hospitality and unforgettable nights in Accra.", phone: "+233 30 000 0086", email: "hello@86casino.com", address: "Accra, Ghana", directions: "https://maps.google.com/?q=Accra,Ghana", hours: "Open daily · 12:00 - late", instagram: null, facebook: null, twitter: null, youtube: null, copyright: "© 2026 86 CASINO. All rights reserved.", ageNotice: "18+ only. Please gamble responsibly." };
 export const fallbackImages = { hero: "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1800&q=85", lounge: "https://images.unsplash.com/photo-1548811579-017e9f3a4bbf?auto=format&fit=crop&w=1200&q=80", exterior: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" };
+export const fallbackGames = [
+	{ id: "fallback-roulette", name: "Roulette", subtitle: "The timeless classic", description: "Feel the energy at the wheel.", image: "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1100&q=85" },
+	{ id: "fallback-blackjack", name: "Blackjack", subtitle: "The game of 21", description: "Bring your best hand to the table.", image: "https://images.unsplash.com/photo-1605870445919-838d190e8e1b?auto=format&fit=crop&w=1100&q=85" },
+	{ id: "fallback-baccarat", name: "Baccarat", subtitle: "Quietly sophisticated", description: "A refined classic for considered players.", image: "https://images.unsplash.com/photo-1518544889289-9b5b4c2f6e6d?auto=format&fit=crop&w=1100&q=85" },
+	{ id: "fallback-poker", name: "Poker", subtitle: "Take your seat", description: "A social, high-energy table experience.", image: "https://images.unsplash.com/photo-1541278107931-e006523892df?auto=format&fit=crop&w=1100&q=85" },
+	{ id: "fallback-slots", name: "Slots", subtitle: "A little more sparkle", description: "Discover a handpicked collection of favourites.", image: "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1100&q=85" }
+];
+export const fallbackPromotions = [
+	{ id: "fallback-welcome", title: "Welcome in Style", subtitle: "Your first night, elevated", description: "Start your 86 experience with a host of small luxuries and a welcome worth remembering.", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85", terms: null },
+	{ id: "fallback-reward", title: "Play More. Be Rewarded.", subtitle: "Make evenings memorable", description: "Ask our hosts about the details that make your time at the tables feel even more considered.", image: "https://images.unsplash.com/photo-1605870445919-838d190e8e1b?auto=format&fit=crop&w=1200&q=85", terms: null },
+	{ id: "fallback-events", title: "Special Event Nights", subtitle: "The weekend starts here", description: "Live atmosphere, signature cocktails and table-side energy in the heart of Accra.", image: "https://images.unsplash.com/photo-1571266028243-d220c9c3b0a9?auto=format&fit=crop&w=1200&q=85", terms: null }
+];
+export const fallbackEvents = [
+	{ id: "fallback-live", title: "Live at 86", subtitle: "Music · every Friday", description: "Accra's finest live performers set the tone for the weekend.", image: "https://images.unsplash.com/photo-1571266028243-d220c9c3b0a9?auto=format&fit=crop&w=1100&q=85", dateTime: new Date("2026-10-02T20:00:00") },
+	{ id: "fallback-social", title: "Saturday Social", subtitle: "Every Saturday night", description: "Good company, a lively room and a reason to stay out later.", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1100&q=85", dateTime: new Date("2026-10-03T20:00:00") },
+	{ id: "fallback-lounge", title: "The 86 Lounge", subtitle: "An evening ritual", description: "Unwind with a considered drinks list and service to match.", image: fallbackImages.lounge, dateTime: new Date("2026-10-04T18:00:00") }
+];
+export const fallbackGallery = [fallbackImages.hero, fallbackImages.lounge, "https://images.unsplash.com/photo-1571266028243-d220c9c3b0a9?auto=format&fit=crop&w=1100&q=85", "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1100&q=85", fallbackImages.exterior];
 
 export async function siteSettings() { try { return await prisma.siteSetting.findUnique({ where: { id: "site" } }) ?? fallbackSettings; } catch { return fallbackSettings; } }
-export async function games() { try { return await prisma.game.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); } catch { return []; } }
-export async function promotions() { try { return await prisma.promotion.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); } catch { return []; } }
-export async function events() { try { return await prisma.event.findMany({ where: { active: true }, orderBy: { dateTime: "asc" } }); } catch { return []; } }
-export async function gallery() { try { return await prisma.galleryItem.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); } catch { return []; } }
+export async function games() { try { const items = await prisma.game.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); return items.length ? items : fallbackGames; } catch { return fallbackGames; } }
+export async function promotions() { try { const items = await prisma.promotion.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); return items.length ? items : fallbackPromotions; } catch { return fallbackPromotions; } }
+export async function events() { try { const items = await prisma.event.findMany({ where: { active: true }, orderBy: { dateTime: "asc" } }); return items.length ? items : fallbackEvents; } catch { return fallbackEvents; } }
+export async function gallery() { try { const items = await prisma.galleryItem.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }); return items.length ? items : fallbackGallery.map((image, index) => ({ id: `fallback-gallery-${index}`, image, altText: "86 Casino nightlife", category: "atmosphere", caption: null })); } catch { return fallbackGallery.map((image, index) => ({ id: `fallback-gallery-${index}`, image, altText: "86 Casino nightlife", category: "atmosphere", caption: null })); } }
 export async function pageBySlug(slug: string) { try { return await prisma.page.findFirst({ where: { slug, published: true } }); } catch { return null; } }
