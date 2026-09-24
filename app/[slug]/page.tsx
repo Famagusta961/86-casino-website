@@ -1,0 +1,4 @@
+import { notFound } from "next/navigation";
+import { pageBySlug } from "@/lib/content";
+export const dynamic = "force-dynamic";
+export default async function ContentPage({ params }: { params: Promise<{slug:string}> }) { const { slug } = await params; const page = await pageBySlug(slug); if (!page) notFound(); return <main><section className="page-hero honeycomb-dark"><div className="container"><div className="eyebrow light">86 CASINO</div><h1>{page.title}</h1>{page.intro && <p>{page.intro}</p>}</div></section><section className="section light"><div className="container rich-copy"><div className="eyebrow">The details</div>{page.body?.split("\n").map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div></section></main>; }

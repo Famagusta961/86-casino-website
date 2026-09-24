@@ -1,0 +1,9 @@
+"use server";
+import { redirect } from "next/navigation";
+import { clearAdminSession, requireAdmin, setAdminSession, validAdmin } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+export async function login(formData: FormData) { const email = String(formData.get("email") || ""); const password = String(formData.get("password") || ""); if (await validAdmin(email, password)) { await setAdminSession(); redirect("/admin/dashboard"); } redirect("/admin?error=1"); }
+export async function logout() { await clearAdminSession(); redirect("/admin"); }
+export async function markMessage(formData: FormData) { if (!(await requireAdmin())) redirect("/admin"); const id = String(formData.get("id")); await prisma.contactMessage.update({ where:{id}, data:{read:formData.get("read") === "true"} }); redirect("/admin/messages"); }
+export async function deleteMessage(formData: FormData) { if (!(await requireAdmin())) redirect("/admin"); const id = String(formData.get("id")); await prisma.contactMessage.delete({where:{id}}); redirect("/admin/messages"); }
+export async function updateSettings(formData: FormData) { if (!(await requireAdmin())) redirect("/admin"); await prisma.siteSetting.upsert({ where:{id:"site"}, update:{ casinoName:String(formData.get("casinoName")), title:String(formData.get("title")), description:String(formData.get("description")), phone:String(formData.get("phone")), email:String(formData.get("email")), address:String(formData.get("address")), directions:String(formData.get("directions")), hours:String(formData.get("hours")) }, create:{id:"site", casinoName:String(formData.get("casinoName")), title:String(formData.get("title")), description:String(formData.get("description")), phone:String(formData.get("phone")), email:String(formData.get("email")), address:String(formData.get("address")), directions:String(formData.get("directions")), hours:String(formData.get("hours"))} }); redirect("/admin/settings?saved=1"); }

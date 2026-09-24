@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { logout } from "./actions";
+export default function AdminLayout({children}:{children:React.ReactNode}) { return <div className="admin-shell"><div className="admin-nav"><div className="container nav"><Link className="logo" href="/admin/dashboard">86 <span>CASINO</span></Link><nav className="nav-links" style={{display:"flex"}}><Link href="/admin/dashboard">Dashboard</Link><Link href="/admin/settings">Settings</Link><Link href="/admin/content">Content</Link><Link href="/admin/messages">Messages</Link><form action={logout}><button className="button button-outline" type="submit">Sign out</button></form></nav></div></div>{children}</div>; }

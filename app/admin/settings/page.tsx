@@ -1,0 +1,6 @@
+import { siteSettings } from "@/lib/content";
+import { updateSettings } from "../actions";
+import { requireAdmin } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
+export default async function SettingsPage() { if (!(await requireAdmin())) redirect("/admin"); const settings = await siteSettings(); return <main className="admin-content"><div className="container"><div className="eyebrow">Site settings</div><h1 style={{fontSize:56}}>The details.</h1><form className="admin-form" action={updateSettings} style={{marginTop:30}}>{[["casinoName","Casino name",settings.casinoName],["title","Website title",settings.title],["description","SEO description",settings.description],["phone","Phone",settings.phone],["email","Email",settings.email],["address","Address",settings.address],["directions","Directions URL",settings.directions],["hours","Opening hours",settings.hours]].map(([name,label,value])=><label key={name as string}>{label}<input name={name as string} defaultValue={value as string}/></label>)}<button className="button button-red" type="submit">Save settings</button></form></div></main>; }

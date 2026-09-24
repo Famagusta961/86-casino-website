@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
+export async function POST(request: Request) { try { const body = await request.json(); if (!body.name || !body.email || !body.message) return NextResponse.json({ error: "Missing required fields" }, { status: 400 }); await prisma.contactMessage.create({ data: { name: String(body.name).slice(0,100), email: String(body.email).slice(0,200), phone: body.phone ? String(body.phone).slice(0,50) : null, subject: body.subject ? String(body.subject).slice(0,200) : null, message: String(body.message).slice(0,5000) } }); return NextResponse.json({ ok:true }); } catch { return NextResponse.json({ error: "Unable to save message" }, { status: 500 }); } }

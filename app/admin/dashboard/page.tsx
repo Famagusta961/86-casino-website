@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { prisma } from "@/lib/db";
+import { requireAdmin } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
+export default async function Dashboard() { if (!(await requireAdmin())) redirect("/admin"); const [games,promotions,events,gallery,messages] = await Promise.all([prisma.game.count(),prisma.promotion.count(),prisma.event.count(),prisma.galleryItem.count(),prisma.contactMessage.count()]); return <main className="admin-content"><div className="container"><div className="eyebrow">Overview</div><h1 style={{fontSize:56}}>Good evening.</h1><p>Here is what is happening across your site.</p><div className="admin-grid" style={{marginTop:35}}>{[[games,"Games"],[promotions,"Promotions"],[events,"Events"],[gallery,"Gallery"],[messages,"Messages"]].map(([count,label])=><div className="stat" key={label as string}><strong>{count as number}</strong><span>{label}</span></div>)}</div><div style={{display:"flex",gap:12,marginTop:35,flexWrap:"wrap"}}><Link className="button button-red" href="/admin/settings">Edit site settings</Link><Link className="button button-dark" href="/admin/messages">View messages</Link><Link className="button button-outline-dark" href="/" target="_blank">View website</Link></div></div></main>; }

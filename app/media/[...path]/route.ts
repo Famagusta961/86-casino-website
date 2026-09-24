@@ -1,0 +1,5 @@
+import { promises as fs } from "fs";
+import path from "path";
+import { NextResponse } from "next/server";
+const types: Record<string,string> = { ".jpg":"image/jpeg", ".jpeg":"image/jpeg", ".png":"image/png", ".webp":"image/webp", ".gif":"image/gif" };
+export async function GET(_request: Request, { params }: { params: Promise<{path:string[]}> }) { const { path: segments } = await params; const filename = segments.join("/"); if (filename.includes("..")) return new NextResponse("Not found", {status:404}); const file = path.join(process.env.UPLOAD_DIR || path.join(process.cwd(), "public/uploads"), filename); try { const data = await fs.readFile(file); return new NextResponse(data, { headers: { "Content-Type": types[path.extname(file).toLowerCase()] || "application/octet-stream", "Cache-Control": "public, max-age=31536000, immutable" } }); } catch { return new NextResponse("Not found", {status:404}); } }

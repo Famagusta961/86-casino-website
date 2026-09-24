@@ -1,0 +1,30 @@
+{
+  "name": "86-casino",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "prisma migrate deploy && prisma db seed && next start -p ${PORT:-3000}",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "prisma": "prisma",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": { "seed": "tsx prisma/seed.ts" },
+  "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "bcryptjs": "^3.0.2",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "prisma": "^6.15.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.3"
+  }
+}

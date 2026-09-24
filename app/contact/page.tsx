@@ -1,0 +1,4 @@
+import { siteSettings } from "@/lib/content";
+import { ContactForm } from "./contact-form";
+export const dynamic = "force-dynamic";
+export default async function ContactPage() { const settings = await siteSettings(); return <main><section className="page-hero honeycomb-dark"><div className="container"><div className="eyebrow light">Get in touch</div><h1>Let&apos;s talk.</h1><p>Questions, bookings and everything in between. Our team is here to help.</p></div></section><section className="section light"><div className="container visit-grid"><div><div className="eyebrow">Contact 86</div><h2>We&apos;re here<br/>for you.</h2><div className="detail-list"><div className="detail"><strong>Call</strong><span>{settings.phone}</span></div><div className="detail"><strong>Email</strong><span>{settings.email}</span></div><div className="detail"><strong>Visit</strong><span>{settings.address}</span></div></div></div><ContactForm/></div></section></main>; }

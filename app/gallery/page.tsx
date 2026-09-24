@@ -1,0 +1,4 @@
+import Image from "next/image";
+import { gallery } from "@/lib/content";
+export const dynamic = "force-dynamic";
+export default async function GalleryPage() { const items = await gallery(); return <main><section className="page-hero honeycomb-dark"><div className="container"><div className="eyebrow light">A closer look</div><h1>The 86<br/>feeling.</h1></div></section><section className="section light honeycomb"><div className="container"><div className="gallery-grid">{items.map(item => <figure key={item.id}><Image src={item.image} alt={item.altText} width={900} height={700}/>{item.caption && <figcaption>{item.caption}</figcaption>}</figure>)}</div></div></section></main>; }

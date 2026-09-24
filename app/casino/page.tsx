@@ -1,0 +1,4 @@
+import Image from "next/image";
+import { games } from "@/lib/content";
+export const dynamic = "force-dynamic";
+export default async function CasinoPage() { const items = await games(); return <main><section className="page-hero honeycomb-dark"><div className="container"><div className="eyebrow light">The 86 casino</div><h1>Classic games.<br/>New energy.</h1><p>Take your seat, find your rhythm and let the room do the rest.</p></div></section><section className="section light honeycomb"><div className="container"><div className="cards">{items.map(game => <article className="game-card" key={game.id}><Image src={game.image} alt={game.name} width={700} height={440}/><div className="game-card-body"><div className="eyebrow">{game.subtitle}</div><h3>{game.name}</h3><p>{game.description}</p></div></article>)}</div></div></section></main>; }
