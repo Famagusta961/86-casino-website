@@ -1,3 +1,44 @@
 import { login } from "./actions";
 import { BrandLogo } from "@/components/brand-logo";
-export default function AdminLogin({ searchParams }: { searchParams: Promise<{error?:string}> }) { return <main className="admin-shell"><div className="container" style={{padding:"100px 0",maxWidth:520}}><BrandLogo width={200} className="admin-logo"/><h1 style={{fontSize:48}}>Admin sign in</h1><p>Manage the content and conversations at 86.</p><form className="admin-form" action={login}><label>Email<input required type="email" name="email" autoComplete="username"/></label><label>Password<input required type="password" name="password" autoComplete="current-password"/></label><button className="button button-red" type="submit">Sign in</button><small>Credentials are configured through Railway environment variables.</small></form></div></main>; }
+export default async function AdminLogin({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
+  return (
+    <main className="admin-shell">
+      <div className="container" style={{ padding: "100px 0", maxWidth: 520 }}>
+        <BrandLogo width={200} className="admin-logo" />
+        <h1 style={{ fontSize: 48 }}>Admin sign in</h1>
+        <p>Manage the content and conversations at 86.</p>
+        {error && (
+          <p role="alert" className="form-error">
+            Email or password was incorrect. Please try again.
+          </p>
+        )}
+        <form className="admin-form" action={login}>
+          <label>
+            Email
+            <input required type="email" name="email" autoComplete="username" />
+          </label>
+          <label>
+            Password
+            <input
+              required
+              type="password"
+              name="password"
+              autoComplete="current-password"
+            />
+          </label>
+          <button className="button button-red" type="submit">
+            Sign in
+          </button>
+          <small>
+            Credentials are configured through Railway environment variables.
+          </small>
+        </form>
+      </div>
+    </main>
+  );
+}
