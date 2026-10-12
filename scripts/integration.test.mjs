@@ -15,7 +15,9 @@ if (
     "Tests require the disposable local PostgreSQL instance on port 55486. Never run against production.",
   );
 const prisma = new PrismaClient();
-const cookie = (time = Date.now()) => {
+// Model an already-issued session; avoid sub-millisecond cross-process clock
+// differences on Windows making a just-created fixture appear future-dated.
+const cookie = (time = Date.now() - 1000) => {
   const value = `admin.${time}`;
   return `86_admin_session=${value}.${crypto.createHmac("sha256", process.env.SESSION_SECRET).update(value).digest("hex")}`;
 };

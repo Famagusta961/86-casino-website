@@ -24,7 +24,7 @@ The public site is available at `http://localhost:3000`. The CMS login is at `/a
 1. Create a Railway PostgreSQL service and attach its `DATABASE_URL` to this service.
 2. Add the variables in `.env.example` in Railway. Use `ADMIN_PASSWORD_HASH` in production; generate it with `node -e "console.log(require('bcryptjs').hashSync('replace-me', 12))"` locally and do not commit it.
 3. Add a Railway Volume mounted at `/app/uploads` and set `UPLOAD_DIR=/app/uploads`.
-4. Deploy from the repository. `npm start` runs `prisma migrate deploy`, safely runs the idempotent seed, and starts Next.js on Railway's `PORT`.
+4. Deploy from the repository. `npm start` runs `prisma migrate deploy` and starts Next.js on Railway's `PORT`. Seeding is an explicit setup action (`npm run db:seed`), never a deployment/startup step.
 5. Configure `NEXT_PUBLIC_SITE_URL` to the public Railway/custom domain so sitemap and Open Graph URLs are correct.
 
 The `/api/health` endpoint is configured as the Railway health check. Uploaded files receive generated UUID names; original filenames are never trusted and files are limited to 8MB and common image MIME types.

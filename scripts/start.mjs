@@ -1,7 +1,6 @@
 import { spawnSync } from "node:child_process";
 const commands = [
   ["node_modules/prisma/build/index.js", "migrate", "deploy"],
-  ["node_modules/prisma/build/index.js", "db", "seed"],
   [
     "node_modules/next/dist/bin/next",
     "start",

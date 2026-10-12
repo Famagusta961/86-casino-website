@@ -18,7 +18,7 @@ The hero separates readable white text from the original casino photograph. Red 
 - Authenticated sessions now enforce the existing 12-hour lifetime server-side and reject malformed signatures. Production requires SESSION_SECRET rather than silently using the development fallback.
 - Uploads retain UUID filenames, the 8 MB limit and UPLOAD_DIR persistence. Basic file-signature validation and media-path restrictions were added. Uploaded files remain on the Railway Volume; no external image storage was introduced.
 - Placeholder social links are omitted. CMS site title/description now feed page metadata. Visit and contact pages expose callable/email contact links.
-- Build explicitly generates Prisma Client. Lint now runs non-interactively. The startup wrapper preserves migrate → seed → Next startup and PORT while also working on Windows.
+- Build explicitly generates Prisma Client. Lint now runs non-interactively. The startup wrapper preserves migrate → Next startup (the approved release removes automatic seeding) and PORT while also working on Windows.
 
 ## Preview and startup
 
@@ -62,7 +62,7 @@ For the production-mode local preview: stop the dev server, run `npm run build`,
 - The existing seed includes sample promotions/events and placeholder legal text. No new offers, schedules, testimonials, facilities or awards were invented. New sample listings start hidden. The local preview also hides its seed offers/events. Existing production records retain their own active state and content; operators should review their accuracy in the CMS before release.
 - Existing hours and the broad Accra map destination are retained when stored in the CMS. An exact street address/map destination and confirmation of hours are still needed for more useful visitor directions.
 - Public fallback information is available if the database is unavailable; saving forms and CMS operations require PostgreSQL. Database outages therefore cannot be assessed solely from the liveness health endpoint.
-- The existing dependency lock produced 7 npm audit advisories (1 moderate, 6 high, including transitive build/image tooling). No forced framework/Prisma upgrades were bundled into this redesign. Dependency remediation remains a separate release task.
+- The original dependency lock produced 7 npm audit advisories. The approved release patches all seven; see [release security review](RELEASE.md).
 - Build reports the existing Prisma seed-config deprecation and notes that the standalone lint config does not include the Next ESLint plugin. These do not prevent successful build/type checking.
 - Browser verification used the Codex Chromium browser at responsive viewports, not physical iOS/Android devices. Production Railway behavior was inspected/configuration preserved, but no live deployment was performed.
 
