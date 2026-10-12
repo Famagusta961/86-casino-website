@@ -8,11 +8,44 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: s.title,
     description: s.description,
-    icons: { icon: "/brand/86-casino-logo.png" },
+    metadataBase: new URL("https://www.86-casino.com"),
+    icons: {
+      icon: [
+        {
+          url: "/brand/86-casino-icon-32.png",
+          sizes: "32x32",
+          type: "image/png",
+        },
+        {
+          url: "/brand/86-casino-icon-48.png",
+          sizes: "48x48",
+          type: "image/png",
+        },
+      ],
+      apple: {
+        url: "/brand/86-casino-icon-180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    },
     openGraph: {
       title: s.casinoName,
       description: s.description,
       type: "website",
+      images: [
+        {
+          url: "/brand/86-casino-social.png",
+          width: 1200,
+          height: 630,
+          alt: "86 Casino",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: s.casinoName,
+      description: s.description,
+      images: ["/brand/86-casino-social.png"],
     },
   };
 }
