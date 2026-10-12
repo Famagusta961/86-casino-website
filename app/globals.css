@@ -774,6 +774,70 @@ main:focus {
   justify-content: space-between;
   gap: 24px;
 }
+.pitcore-recognition {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 32px 0;
+}
+.pitcore-footer {
+  border-top: 1px solid #ffffff20;
+}
+.pitcore-logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 260px;
+  max-width: 100%;
+  padding: 16px;
+  background: #fff;
+  border-radius: 4px;
+}
+.pitcore-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pitcore-copy {
+  min-width: 0;
+}
+.pitcore-copy h2 {
+  font-size: clamp(24px, 2.5vw, 30px);
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+.pitcore-copy p {
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+.pitcore-footer p {
+  color: #cdcec8;
+}
+.pitcore-website {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.pitcore-website:hover {
+  text-decoration-thickness: 2px;
+}
+.about-pitcore {
+  padding-bottom: 72px;
+}
+.pitcore-about {
+  border-top: 1px solid #11111120;
+  border-bottom: 1px solid #11111120;
+}
+@media (max-width: 600px) {
+  .pitcore-recognition {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
 .age {
   color: #d0d1ca;
 }

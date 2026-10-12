@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteSettings } from "@/lib/content";
 import { BrandLogo } from "./brand-logo";
+import { PitCoreRecognition } from "./pitcore-recognition";
 export async function SiteFooter() {
   const s = await siteSettings();
   const social = [
@@ -69,6 +70,7 @@ export async function SiteFooter() {
             </div>
           </div>
         </div>
+        <PitCoreRecognition placement="footer" />
         <div className="footer-bottom">
           <span>{s.copyright}</span>
           <span className="age">{s.ageNotice}</span>

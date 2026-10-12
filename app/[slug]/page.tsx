@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { pageBySlug, siteSettings } from "@/lib/content";
+import { PitCoreRecognition } from "@/components/pitcore-recognition";
 export const dynamic = "force-dynamic";
 const pageImages: Record<string, string> = {
   about: "/assets/casino/007.webp",
@@ -122,6 +123,11 @@ export default async function ContentPage({
           )}
         </div>
       </section>
+      {slug === "about" && (
+        <div className="container about-pitcore">
+          <PitCoreRecognition placement="about" />
+        </div>
+      )}
     </main>
   );
 }
