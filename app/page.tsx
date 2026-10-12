@@ -110,7 +110,7 @@ export default async function Home() {
                 <div className="home-game-photo">
                   <Image
                     src={game.image}
-                    alt={game.name}
+                    alt="Inside 86 Casino — illustrative casino photograph"
                     fill
                     sizes="(max-width: 760px) 100vw, 33vw"
                   />

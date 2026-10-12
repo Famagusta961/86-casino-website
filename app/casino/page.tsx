@@ -40,12 +40,18 @@ export default async function CasinoPage() {
               </a>
             </div>
           )}
+          {items.length > 0 && (
+            <p>
+              Photographs show the 86 Casino floor and atmosphere and may not
+              depict the game listed.
+            </p>
+          )}
           <div className="cards">
             {items.map((game) => (
               <article className="game-card" key={game.id}>
                 <Image
                   src={game.image}
-                  alt={game.name}
+                  alt="Inside 86 Casino — illustrative casino photograph"
                   width={700}
                   height={440}
                   sizes="(max-width: 760px) 100vw, 33vw"
