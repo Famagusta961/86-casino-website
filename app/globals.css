@@ -786,9 +786,9 @@ main:focus {
 .pitcore-logo {
   display: block;
   flex: 0 0 auto;
-  width: 260px;
+  width: 182px;
   max-width: 100%;
-  padding: 16px;
+  padding: 11.2px;
   background: #fff;
   border-radius: 4px;
 }
