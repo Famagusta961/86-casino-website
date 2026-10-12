@@ -8,7 +8,7 @@ export function BrandLogo({
   width?: number;
   className?: string;
 }) {
-  const height = Math.round((width * 77.3701) / 124.724);
+  const height = Math.round((width * 59) / 95);
   return (
     <Link
       className={`brand-logo ${className}`}
@@ -16,10 +16,12 @@ export function BrandLogo({
       aria-label="86 Casino home"
     >
       <Image
-        src="/brand/86-casino-logo.svg"
+        src="/brand/86-casino-logo-transparent.png"
         alt="86 Casino"
         width={width}
         height={height}
+        sizes={`${width}px`}
+        unoptimized
         priority
       />
     </Link>

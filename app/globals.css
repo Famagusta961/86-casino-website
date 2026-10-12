@@ -180,9 +180,6 @@ main:focus {
 .brand-logo {
   display: block;
   flex-shrink: 0;
-  padding: 6px;
-  background: #fff;
-  border-radius: 3px;
 }
 .brand-logo img {
   width: 100%;

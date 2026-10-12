@@ -12,18 +12,18 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: [
         {
-          url: "/brand/86-casino-icon-32.png",
+          url: "/brand/86-casino-icon-red-32.png",
           sizes: "32x32",
           type: "image/png",
         },
         {
-          url: "/brand/86-casino-icon-48.png",
+          url: "/brand/86-casino-icon-red-48.png",
           sizes: "48x48",
           type: "image/png",
         },
       ],
       apple: {
-        url: "/brand/86-casino-icon-180.png",
+        url: "/brand/86-casino-icon-red-180.png",
         sizes: "180x180",
         type: "image/png",
       },
@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       images: [
         {
-          url: "/brand/86-casino-social.png",
+          url: "/brand/86-casino-social-transparent.png",
           width: 1200,
           height: 630,
           alt: "86 Casino",
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: s.casinoName,
       description: s.description,
-      images: ["/brand/86-casino-social.png"],
+      images: ["/brand/86-casino-social-transparent.png"],
     },
   };
 }
