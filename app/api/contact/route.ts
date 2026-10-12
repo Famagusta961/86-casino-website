@@ -1,3 +1,45 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-export async function POST(request: Request) { try { const body = await request.json(); if (!body.name || !body.email || !body.message) return NextResponse.json({ error: "Missing required fields" }, { status: 400 }); await prisma.contactMessage.create({ data: { name: String(body.name).slice(0,100), email: String(body.email).slice(0,200), phone: body.phone ? String(body.phone).slice(0,50) : null, subject: body.subject ? String(body.subject).slice(0,200) : null, message: String(body.message).slice(0,5000) } }); return NextResponse.json({ ok:true }); } catch { return NextResponse.json({ error: "Unable to save message" }, { status: 500 }); } }
+export async function POST(request: Request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+  if (!body || typeof body !== "object")
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  const name = typeof body.name === "string" ? body.name.trim() : "",
+    email = typeof body.email === "string" ? body.email.trim() : "",
+    message = typeof body.message === "string" ? body.message.trim() : "";
+  if (
+    !name ||
+    !message ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    name.length > 100 ||
+    email.length > 200 ||
+    message.length > 5000
+  )
+    return NextResponse.json(
+      { error: "Please provide a name, valid email and message" },
+      { status: 400 },
+    );
+  try {
+    await prisma.contactMessage.create({
+      data: {
+        name,
+        email,
+        message,
+        phone: typeof body.phone === "string" ? body.phone.slice(0, 50) : null,
+        subject:
+          typeof body.subject === "string" ? body.subject.slice(0, 200) : null,
+      },
+    });
+    return NextResponse.json({ ok: true });
+  } catch {
+    return NextResponse.json(
+      { error: "Unable to save message" },
+      { status: 503 },
+    );
+  }
+}
