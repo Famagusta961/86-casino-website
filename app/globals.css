@@ -209,7 +209,8 @@ main:focus {
   gap: 23px;
 }
 .site-header .nav-links > a:not(.button) {
-  font-size: 11px;
+  font-size: 16px;
+  font-weight: 500;
   color: #c2c2bd;
   min-height: 44px;
   display: flex;
@@ -231,6 +232,8 @@ main:focus {
 }
 .site-header .button {
   margin-left: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .mobile-toggle {
   display: none;
@@ -954,7 +957,7 @@ body:has(.admin-shell) > .site-footer {
     height: 220px;
   }
 }
-@media (max-width: 950px) {
+@media (max-width: 1100px) {
   .mobile-toggle {
     display: block;
   }
@@ -986,6 +989,8 @@ body:has(.admin-shell) > .site-footer {
   .nav {
     min-height: 80px;
   }
+}
+@media (max-width: 950px) {
   .hero-editorial h1 {
     font-size: 52px;
   }
