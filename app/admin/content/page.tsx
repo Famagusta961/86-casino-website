@@ -6,8 +6,8 @@ export default async function ContentPage() {
   return (
     <main className="admin-content">
       <div className="container">
-        <div className="eyebrow">Content management</div>
-        <h1>Your story, editable.</h1>
+        <div className="eyebrow">Website administration</div>
+        <h1>Content Management</h1>
         <p>
           Manage games, promotions, events, gallery photographs and information
           pages.

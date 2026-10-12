@@ -1,4 +1,19 @@
-import Link from "next/link";
-import { logout } from "./actions";
 import { BrandLogo } from "@/components/brand-logo";
-export default function AdminLayout({children}:{children:React.ReactNode}) { return <div className="admin-shell"><div className="admin-nav"><div className="container nav"><BrandLogo width={185} className="admin-nav-logo"/><nav className="nav-links" style={{display:"flex"}}><Link href="/admin/dashboard">Dashboard</Link><Link href="/admin/settings">Settings</Link><Link href="/admin/content">Content</Link><Link href="/admin/messages">Messages</Link><form action={logout}><button className="button button-outline" type="submit">Sign out</button></form></nav></div></div>{children}</div>; }
+import { AdminNavigation } from "@/components/admin-navigation";
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="admin-shell">
+      <div className="admin-nav">
+        <div className="container nav">
+          <BrandLogo width={130} className="admin-nav-logo" />
+          <AdminNavigation />
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}

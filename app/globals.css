@@ -7,6 +7,7 @@
   --line: #d9d6cf;
   --serif: "Playfair Display", Georgia, serif;
   --sans: "DM Sans", Arial, sans-serif;
+  --site-header-height: 95px;
 }
 * {
   box-sizing: border-box;
@@ -257,11 +258,16 @@ main:focus {
   top: 12px;
 }
 .home-hero {
+  min-height: calc(100vh - var(--site-header-height));
+  min-height: calc(100svh - var(--site-header-height));
+  display: flex;
+  flex-direction: column;
   background: var(--black);
   color: #fff;
   padding-top: 44px;
 }
 .hero-layout {
+  flex: 1 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.05fr;
   align-items: center;
@@ -346,6 +352,7 @@ main:focus {
   color: white;
 }
 .hero-bottom {
+  flex-shrink: 0;
   border-top: 1px solid #ffffff24;
   display: flex;
   align-items: center;
@@ -850,9 +857,34 @@ main:focus {
   color: white;
 }
 .admin-nav .nav-links {
+  display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.admin-nav .nav {
+  flex-wrap: wrap;
+  padding-block: 16px;
+}
+.admin-nav .nav-links > a {
+  padding-block: 12px;
+}
+.admin-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: #ff6575;
+  text-underline-offset: 8px;
+}
+.admin-nav .admin-sign-out {
+  color: #202222;
+  background: #fff;
+  border-color: #fff;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.admin-nav .admin-sign-out:hover {
+  background: #e5e5df;
 }
 .admin-nav .brand-logo {
   width: 130px;
@@ -934,14 +966,52 @@ main:focus {
   flex-direction: column;
   gap: 8px;
 }
-.admin-records button {
+.admin-records .admin-record {
   background: white;
+  color: var(--black);
   border: 1px solid var(--line);
   padding: 15px;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.admin-records button[aria-pressed="true"] {
+.admin-records .admin-record[aria-pressed="true"] {
   border-color: var(--red);
+  box-shadow: inset 3px 0 var(--red);
+}
+.admin-add-record {
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.admin-record-thumbnail {
+  width: 80px;
+  height: 60px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.admin-record-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.admin-record-copy strong {
+  font-size: 14px;
+}
+.admin-record-copy small {
+  font-size: 12px;
+  color: #545450;
+}
+.admin-editor-heading {
+  font-size: 26px;
+  margin: 0;
+}
+.admin-image-path {
+  overflow-wrap: anywhere;
+  font-size: 13px;
 }
 .admin-collection .admin-form {
   margin: 0;
@@ -988,6 +1058,9 @@ body:has(.admin-shell) > .site-footer {
   }
 }
 @media (max-width: 1100px) {
+  :root {
+    --site-header-height: 81px;
+  }
   .container {
     width: calc(100% - 64px);
   }

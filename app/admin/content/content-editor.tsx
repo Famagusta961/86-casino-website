@@ -1,6 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 type RecordData = Record<string, string | number | boolean | null>;
+const recordNames: Record<string, string> = {
+  games: "game",
+  promotions: "promotion",
+  events: "event",
+  gallery: "gallery image",
+  pages: "page",
+};
 const fields: Record<string, string[]> = {
   games: ["name", "subtitle", "description", "image", "sortOrder", "active"],
   promotions: [
@@ -111,7 +119,11 @@ export function ContentEditor() {
       const saved = await response.json();
       setRecord(saved);
       setItems((prev) => [saved, ...prev.filter((x) => x.id !== saved.id)]);
-      setStatus("Saved. Published content is available on the website.");
+      setStatus(
+        saved.active === false || saved.published === false
+          ? "Saved. This record is hidden from the public website."
+          : "Saved and published. This record is available on the website.",
+      );
     } catch {
       setStatus(
         "Could not save. Check required fields, image paths, dates and your session.",
@@ -162,14 +174,15 @@ export function ContentEditor() {
       <div className="admin-collection">
         <aside className="admin-records">
           <button
-            className="button button-dark"
+            className="button button-dark admin-add-record"
             onClick={newRecord}
             disabled={busy}
           >
-            Add new {resource === "gallery" ? "image" : "record"}
+            Add {recordNames[resource]}
           </button>
           {items.map((item) => (
             <button
+              className="admin-record"
               disabled={busy}
               aria-pressed={item.id === record.id}
               key={String(item.id)}
@@ -178,15 +191,39 @@ export function ContentEditor() {
                 setStatus("");
               }}
             >
-              {String(item.name || item.title || item.altText || item.id)}
-              {item.active === false || item.published === false
-                ? " · Hidden"
-                : ""}
+              {resource === "gallery" && item.image && (
+                <Image
+                  className="admin-record-thumbnail"
+                  src={String(item.image)}
+                  alt=""
+                  width={80}
+                  height={60}
+                  unoptimized
+                />
+              )}
+              <span className="admin-record-copy">
+                <strong>
+                  {String(item.name || item.title || item.altText || item.id)}
+                </strong>
+                {resource === "gallery" && (
+                  <small>
+                    {String(item.caption || item.category || "Photograph")}
+                  </small>
+                )}
+                <small>
+                  {item.active === false || item.published === false
+                    ? "Hidden"
+                    : "Published"}
+                </small>
+              </span>
             </button>
           ))}
         </aside>
         {Object.keys(record).length > 0 ? (
           <form className="admin-form" onSubmit={save}>
+            <h2 className="admin-editor-heading">
+              {record.id ? "Edit" : "New"} {recordNames[resource]}
+            </h2>
             {fields[resource].map((key) => (
               <div className="editor-field" key={key}>
                 <label htmlFor={`field-${key}`}>{label(key)}</label>
@@ -260,14 +297,26 @@ export function ContentEditor() {
                       onChange={(e) => void upload(e.target.files?.[0], key)}
                     />
                     {record[key] && (
-                      <span>Current image: {String(record[key])}</span>
+                      <>
+                        <Image
+                          className="admin-preview"
+                          src={String(record[key])}
+                          alt="Current record image preview"
+                          width={320}
+                          height={220}
+                          unoptimized
+                        />
+                        <span className="admin-image-path">
+                          Current image: {String(record[key])}
+                        </span>
+                      </>
                     )}
                   </>
                 )}
               </div>
             ))}
             <button className="button button-red" disabled={busy} type="submit">
-              {busy ? "Working…" : "Save record"}
+              {busy ? "Working…" : `Save ${recordNames[resource]}`}
             </button>
             <small>
               Turn off Active or Published to hide a record without deleting it.
